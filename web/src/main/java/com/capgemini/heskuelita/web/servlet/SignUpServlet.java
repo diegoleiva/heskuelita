@@ -34,10 +34,10 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        /* Obtengo la configuracuin de la app */
+        //CONFIG APP
         ServletContext context = config.getServletContext();
 
-        /* Obtengo la configuracion de la conexion a la base de datos */
+       //CONFIG DB
         DBConnectionManager manager= (DBConnectionManager) context.getAttribute("db");
 
         try {
@@ -82,10 +82,10 @@ public class SignUpServlet extends HttpServlet {
 
 
         try{
-            /*Se realiza la verificacion del registo de un nuevo estudiante  */
+           //VERIFICO REGISTRO ESTUDIANTE
             this.securityService.signUp(student);
         }catch (Exception e){
-            logger.error("Error en proceso de sign up!!!");
+            logger.error("ERROR REGISTRO ESTUDIANTE");
             e.printStackTrace();
         }
     }

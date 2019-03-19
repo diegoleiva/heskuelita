@@ -25,21 +25,20 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        /* Obtengo la configuracion de la app */
+        //CONFIG APP
         ServletContext context = config.getServletContext();
 
-        /*Obtengo la configuracion de la conexion a la base de datos */
+        ///DB
 
         DBConnectionManager  manager = (DBConnectionManager) context.getAttribute("db");
 
         try {
-            /* Se inicializa el servicio de seguridad del login con un una coneccion a la bd  */
+            //INIT SERVICE CONECTION DB AND SECURITY
             this.securityService = new SecurityServiceImpl(new UserDao(manager.getSessionFactory()));
         }catch (Exception e){
             e.printStackTrace();
             throw new ServletException(e);
         }
-
 
     }
 
@@ -50,12 +49,11 @@ public class LoginServlet extends HttpServlet {
         user.setEmail(req.getParameter("ctrlName"));
         user.setPassword(req.getParameter("ctrlPassword"));
 
-
         try {
-            /* se realiza la verificacion del login */
+            //VERIFICO LOGIN
             Student student = this.securityService.login(user);
-            /* Se obtiene un sesion , en que caso que no exita se crea,  y se le setea como atributo un usuario*/
-            HttpSession session =  req.getSession();
+            //OBTENGO SESION, CREO  Y SETEO COMO UN USUARIO
+             HttpSession session =  req.getSession();
             session.setAttribute("student",student);
             resp.sendRedirect("home.jsp");
         } catch (Exception e) {

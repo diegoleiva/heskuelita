@@ -45,11 +45,6 @@ public class SecurityServiceImpl implements ISecurityService {
             logger.info("Tipo de documento del usuario: " + student.getDocType());
             logger.info("Nro de documento del usuario: "+ student.getIdentification());
             logger.info("Sexo del usuario: " + student.getGender());
-            //logger.info("Email del usuario: " + student.getUser().getEmail());
-            //logger.info("Password del usuario: " + student.getUser().getPassword());
-            //logger.info("Pregunta de seguridad  del usuario: " + student.getUser().getSecQuestion());
-            //logger.info("Respuesta de seguridad  del usuario: " + student.getUser().getSecAnswer());
-
 
             this.userDao.signUp(student);
         }catch (Exception e){

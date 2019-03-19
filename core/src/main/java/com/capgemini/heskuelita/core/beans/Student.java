@@ -91,11 +91,9 @@ public class Student {
     public String getDocType() {
         return docType;
     }
-
     public void setDocType(String docType) {
         this.docType = docType;
     }
-
     public void setIdentification(long identification) {
         this.identification = identification;
     }
@@ -112,15 +110,11 @@ public class Student {
         this.gender = gender;
     }
 
-
     public User getUser() {
         return user;
     }
 
-
     public void setUser(User user) {
         this.user = user;
     }
-
-
 }

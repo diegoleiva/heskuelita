@@ -3,6 +3,7 @@ package com.capgemini.heskuelita.core.beans;
 import javax.persistence.*;
 
 
+//MAPEO
 @Entity	(name="User")
 @Table (name = "users")
 public class User {
