@@ -1,0 +1,151 @@
+*{box-sizing: border-box;}
+body{
+    
+    margin: 0;
+    font-family: sans-serif;
+    background: #204862;
+    
+}
+
+h1{
+    color: #fff;
+    text-align: center;
+    
+    
+}
+
+.form-register{
+    
+    width: 95%;
+    max-width: 680px;
+    margin: auto;
+    background: white;
+    border-radius: 7px;
+    
+    
+}
+
+.form__titulo{
+    
+    background: deepskyblue;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 30px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom: 5px solid crimson;
+    
+}
+
+.contenedor-inputs{
+
+    padding: 10px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+input{
+    margin-bottom: 15px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid darkgray; 
+    
+    }
+
+.input-22{
+    width: 22%;
+        
+}
+.input-28{
+    width: 28%;
+        
+}
+
+.input-48{
+    width: 48%;
+        
+}
+
+.input-50{
+    width: 50%;
+        
+}
+
+.input-70{
+    width: 70%;
+}
+
+.input-100{
+    width: 100%;
+}
+
+.btn-enviar{
+    background: crimson;
+    color: #fff;
+    padding: 10px 40px;
+    cursor: pointer;
+    font-size: 20px;
+    
+}
+.btn-enviar:active{
+    transform: scale(1.05)
+}
+
+.select-48{
+    width: 48%;
+    margin-bottom: 15px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid darkgray; 
+}
+
+.select-50{
+    width: 50%;
+    margin-bottom: 15px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid darkgray; 
+}
+
+.select-70{
+    width: 70%;
+    margin-bottom: 15px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid darkgray; 
+}
+
+
+.seleccionables{
+    margin-bottom: 15px;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid darkgray; 
+    
+}
+.text-seleccionables{
+    margin-top: 12px;
+    margin-right: auto;    
+    padding: 4px;
+    font-size: 16px;        
+    
+}
+
+
+.form-link{
+    width: 100%;
+    margin: 7;
+    font-size: 14px;
+    text-align: center;
+    
+    
+}
