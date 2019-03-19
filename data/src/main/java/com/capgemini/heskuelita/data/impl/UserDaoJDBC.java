@@ -26,11 +26,13 @@ public class UserDaoJDBC implements IUserDao {
         try {
 
             Statement stm = this.conn.createStatement ();
-           //ResultSet resultSet = stm.executeQuery ("SELECT * from users WHERE email='" + userName + "' AND password='" + password + "'");
+
+           // ResultSet resultSet = stm.executeQuery ("SELECT * from users WHERE email='" + userName + "' AND password='" + password + "'");
             ResultSet resultSet = stm.executeQuery ("select u.email , s.name, s.lastname from users u Inner Join student s on (u.email= s.email) where u.email= '" + userName +"' and u.password='" + password +"' ");
+
             //ResultSet resultSet = stm.executeQuery ("select u.email, u.password from users as u where u.email= '" + userName +"' and u.password='" + password +"' ");
 
-            //DE LAS COLUMNAS QUE LEYÓ VOY GUARDANDO EN US. YA QUE SON LOS UNICOS DATOS QUE ME IMPORTAN
+
             while (resultSet.next ()) {
 
                 us = new User ();
@@ -51,14 +53,17 @@ public class UserDaoJDBC implements IUserDao {
         }
 
         return us;
+
+
+
     }
 
     @Override
     public void signUp(Student student) {
         int r= 0;
         try{
+
             PreparedStatement pstmUser = this.conn.prepareStatement("INSERT INTO users VALUES (?,?,?,?)");
-            //ACOMODAMOS POR COLUMNAS LA DATA
             pstmUser.setString(1, student.getUser().getEmail());
             pstmUser.setString(2, student.getUser().getPassword());
             pstmUser.setString(3, student.getUser().getSecQuestion());
@@ -82,7 +87,8 @@ public class UserDaoJDBC implements IUserDao {
             pstmStudent.setString(6,student.getGender());
 
             int p= pstmStudent.executeUpdate();
-            System.out.println("Estudiante registrado: " + r);
+            System.out.println("Se registro el estudiante: " + r);
+
 
         }catch(Exception e){
                 throw new DataException (e);

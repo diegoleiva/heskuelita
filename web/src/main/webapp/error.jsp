@@ -31,6 +31,8 @@
                 <div id="login" class="animate form">
                     <form  action="login" autocomplete="on" method="post">
                         <h1>ERROR AL CONECTAR</h1>
+
+
                         <a href="index.jsp" class="to_register">Volver</a>
                         </p>
                     </form>

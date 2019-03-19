@@ -1,74 +1,51 @@
 
 package com.capgemini.heskuelita.data.db;
 
-
-import java.sql.Connection;
-
-import org.apache.commons.dbcp2.BasicDataSource;
-
 import com.capgemini.heskuelita.data.DataException;
-
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.apache.log4j.Logger;
 
 public class DBConnectionManager {
 
-
-	private String dbURL;
-	private String user;
-	private String password;
-	private String driver;
-
-    private BasicDataSource dataSource;
+	private static SessionFactory sessionFactory;
+	private Logger logger = Logger.getLogger(DBConnectionManager.class);
 
 
-	public DBConnectionManager (String url, String u, String p, String d) {
-
-	    super ();
-		this.dbURL = url;
-		this.user  = u;
-		this.password = p;
-		this.driver   = d;
-
-		this.setup ();
+	public DBConnectionManager() {
+		super();
+		buildSessionFactory();
 	}
 
 
-    private void setup ()  {
+	private SessionFactory buildSessionFactory() {
+		try {
 
-        // Create a new Datasource.
-        this.dataSource = new BasicDataSource ();
+			logger.debug("Inicio de la creacion del sessionFactoy");
+			Configuration configuration = new Configuration();
+			configuration.configure("hibernate.cfg.xml");
+			logger.info("Configuracion de Hibernate cargada");
+			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			logger.info("ServiceRegisty de Hibernate creado");
+			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+			logger.debug("SessionFactory creado exitosamente!!!");
+			return sessionFactory;
 
-        this.dataSource.setUrl (this.dbURL);
-        this.dataSource.setUsername (this.user);
-        this.dataSource.setPassword (this.password);
-        this.dataSource.setMinIdle (50);
-        this.dataSource.setMaxIdle (100);
-        this.dataSource.setMaxOpenPreparedStatements (1000);
-        this.dataSource.setDriverClassName (this.driver);
-    }
-
-	
-	public Connection getConnection () {
-
-	    try {
-
-            return this.dataSource.getConnection ();
-
-        } catch (Exception e) {
-
-	        throw new DataException(e);
-        }
+		} catch (Exception e) {
+			logger.error("Fallo la creación del SessionFactory");
+			e.printStackTrace();
+			throw new DataException(e);
+		}
 	}
-	
-	public void closeConnection () {
 
-	    try {
-
-            this.dataSource.close ();
-
-        } catch (Exception e) {
-
-	        e.printStackTrace ();
-        }
-
+	public SessionFactory getSessionFactory(){
+		return sessionFactory;
 	}
+
+	public void closeSessionFactory(){
+		sessionFactory.close();
+	}
+
 }

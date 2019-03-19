@@ -14,31 +14,22 @@ import com.capgemini.heskuelita.data.db.DBConnectionManager;
 public class AppContextListener implements ServletContextListener {
 
 
-    public AppContextListener () {
+	public AppContextListener () {
 
-        super ();
-    }
+		super ();
+	}
 
 	@Override
-    public void contextInitialized (ServletContextEvent servletContextEvent) {
+	public void contextInitialized (ServletContextEvent servletContextEvent) {
+		ServletContext ctx = servletContextEvent.getServletContext ();
+		DBConnectionManager dbManager = new DBConnectionManager ();
+		ctx.setAttribute ("db", dbManager);
+	}
 
-
-    	ServletContext ctx = servletContextEvent.getServletContext ();
-    	
-    	String url = ctx.getInitParameter ("DBURL");
-    	String u   = ctx.getInitParameter ("DBUSER");
-    	String p   = ctx.getInitParameter ("DBPWD");
-        String d   = ctx.getInitParameter ("DRIVER");
-
-    	DBConnectionManager dbManager = new DBConnectionManager (url, u, p, d);
-    	ctx.setAttribute ("db", dbManager);
-    }
-
-    @Override
-    public void contextDestroyed (ServletContextEvent servletContextEvent) {
-
-    	ServletContext ctx = servletContextEvent.getServletContext ();
-    	DBConnectionManager dbManager = (DBConnectionManager) ctx.getAttribute ("db");
-    	dbManager.closeConnection ();
-    }
+	@Override
+	public void contextDestroyed (ServletContextEvent servletContextEvent) {
+		ServletContext ctx = servletContextEvent.getServletContext ();
+		DBConnectionManager dbManager = (DBConnectionManager) ctx.getAttribute ("db");
+		dbManager.closeSessionFactory ();
+	}
 }

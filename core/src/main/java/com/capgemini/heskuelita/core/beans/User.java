@@ -1,40 +1,44 @@
 package com.capgemini.heskuelita.core.beans;
 
-import lombok.*;
+import javax.persistence.*;
 
+
+@Entity	(name="User")
+@Table (name = "users")
 public class User {
 
-    private String name;
-    private String lastname;
+    @Id
+    @Column(name = "id_user", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO,generator="seq_users")
+    @SequenceGenerator(name="seq_users", sequenceName="seq_users")
+    private int id_user;
+
+    @Column (name = "email", length = 48, nullable = false)
     private String email;
+
+
+    @Column (name = "password", length = 12, nullable = false)
     private String password;
+
+    @Column (name = "question", length = 48, nullable = false)
     private String secQuestion;
+
+    @Column (name = "answer", length = 60, nullable = false)
     private String secAnswer;
+
     public User() {
+
     }
 
-    public User(String name,String lastname, String email, String password, String secQuestion, String secAnswer) {
 
-        this.name = name;
-        this.lastname = lastname;
+    public User(int id_user, String email, String password, String secQuestion, String secAnswer){
+        this.id_user = id_user;
         this.email = email;
         this.password = password;
         this.secQuestion = secQuestion;
         this.secAnswer = secAnswer;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getLastname() {
-        return lastname;
-    }
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
     public String getEmail() {
         return email;
     }
@@ -59,4 +63,5 @@ public class User {
     public void setSecAnswer(String secAnswer) {
         this.secAnswer = secAnswer;
     }
+
 }

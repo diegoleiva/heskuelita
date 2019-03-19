@@ -2,40 +2,67 @@ package com.capgemini.heskuelita.core.beans;
 
 import java.time.LocalDate;
 
+import javax.persistence.*;
+
+@Entity (name = "Student")
+@Table (name = "student")
 public class Student {
 
-    //En esta versión no utilizaré el ID, una mala práctica ya que estamos practicando
-   // private String id;
+    @Id
+    @Column(name = "id_student")
+    @GeneratedValue(strategy = GenerationType.AUTO,generator="seq_student")
+    @SequenceGenerator(name="seq_student", sequenceName="seq_student")
+
+    private int id;
+
+    @Column(name = "name" , nullable = false)
     private String name;
+
+    @Column(name = "lastname", nullable = false)
     private String lastname;
-    private LocalDate birthdate;
+
+    //ESTA TAMBIËN ME DABA PROBLEMAS; LA DESACTIVAMOS MIENTRAS
+    /*
+   @Column(name = "birthdate" , nullable = true )
+   private LocalDate birthdate;
+	*/
+    @Column(name = "documentation_type", nullable = false)
     private String docType;
-    private String identification;
+
+
+    @Column(name = "identification", nullable = false)
+    private long identification;
+
+
+    @Column(name = "gender", nullable = false)
     private String gender;
+
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "id_user" )
     private User user;
 
     public Student() {
-
     }
-    //public Student(String id, String name, String lastname, LocalDate birthdate, String docType,long identifiaction , String gender, User user) {
-    public Student(String name, String lastname, LocalDate birthdate, String docType,String identifiaction , String gender, User user) {
-        //this.id = id;
+
+
+    public Student(int id, String name, String lastname, String docType,long identifiaction , String gender, User user) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
-        this.birthdate = birthdate;
+        //this.birthdate = birthdate;
         this.docType = docType;
         this.identification = identifiaction;
         this.gender = gender;
         this.user = user;
     }
 
-    //public String getId() {
-     //   return id;
-    //}
+    public int getId() {
+        return id;
+    }
 
-    //public void setId(String id) {
-    //    this.id = id;
-    //}
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -52,7 +79,7 @@ public class Student {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
+    /*
     public LocalDate getBirthdate() {
         return birthdate;
     }
@@ -60,7 +87,7 @@ public class Student {
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
-
+*/
     public String getDocType() {
         return docType;
     }
@@ -69,11 +96,11 @@ public class Student {
         this.docType = docType;
     }
 
-    public void setIdentification(String identification) {
+    public void setIdentification(long identification) {
         this.identification = identification;
     }
 
-    public String getIdentification() {
+    public long getIdentification() {
         return identification;
     }
 
@@ -85,11 +112,15 @@ public class Student {
         this.gender = gender;
     }
 
+
     public User getUser() {
         return user;
     }
 
+
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
